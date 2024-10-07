@@ -1656,7 +1656,7 @@ importers:
         version: 2.2.2(typescript@5.6.2)(vue@3.5.10(typescript@5.6.2))
       pinia-plugin-persistedstate:
         specifier: 'catalog:'
-        version: 4.0.2(pinia@2.2.2(typescript@5.6.2)(vue@3.5.10(typescript@5.6.2)))(rollup@3.29.5)
+        version: 4.0.2(pinia@2.2.2(typescript@5.6.2)(vue@3.5.10(typescript@5.6.2)))(rollup@4.22.5)
       vue:
         specifier: 3.5.10
         version: 3.5.10(typescript@5.6.2)
@@ -13018,9 +13018,9 @@ snapshots:
       mkdirp: 1.0.4
       rimraf: 3.0.2
 
-  '@nuxt/kit@3.13.2(rollup@3.29.5)':
+  '@nuxt/kit@3.13.2(rollup@4.22.5)':
     dependencies:
-      '@nuxt/schema': 3.13.2(rollup@3.29.5)
+      '@nuxt/schema': 3.13.2(rollup@4.22.5)
       c12: 1.11.2
       consola: 3.2.3
       defu: 6.1.4
@@ -13038,7 +13038,7 @@ snapshots:
       semver: 7.6.3
       ufo: 1.5.4
       unctx: 2.3.1
-      unimport: 3.12.0(rollup@3.29.5)
+      unimport: 3.12.0(rollup@4.22.5)
       untyped: 1.4.2
     transitivePeerDependencies:
       - magicast
@@ -13046,7 +13046,7 @@ snapshots:
       - supports-color
       - webpack-sources
 
-  '@nuxt/schema@3.13.2(rollup@3.29.5)':
+  '@nuxt/schema@3.13.2(rollup@4.22.5)':
     dependencies:
       compatx: 0.1.8
       consola: 3.2.3
@@ -13058,7 +13058,7 @@ snapshots:
       std-env: 3.7.0
       ufo: 1.5.4
       uncrypto: 0.1.3
-      unimport: 3.12.0(rollup@3.29.5)
+      unimport: 3.12.0(rollup@4.22.5)
       untyped: 1.4.2
     transitivePeerDependencies:
       - rollup
@@ -17800,9 +17800,9 @@ snapshots:
 
   pify@4.0.1: {}
 
-  pinia-plugin-persistedstate@4.0.2(pinia@2.2.2(typescript@5.6.2)(vue@3.5.10(typescript@5.6.2)))(rollup@3.29.5):
+  pinia-plugin-persistedstate@4.0.2(pinia@2.2.2(typescript@5.6.2)(vue@3.5.10(typescript@5.6.2)))(rollup@4.22.5):
     dependencies:
-      '@nuxt/kit': 3.13.2(rollup@3.29.5)
+      '@nuxt/kit': 3.13.2(rollup@4.22.5)
       deep-pick-omit: 1.2.0
       defu: 6.1.4
       destr: 2.0.3
@@ -19539,9 +19539,9 @@ snapshots:
 
   unicorn-magic@0.3.0: {}
 
-  unimport@3.12.0(rollup@3.29.5):
+  unimport@3.12.0(rollup@4.22.4):
     dependencies:
-      '@rollup/pluginutils': 5.1.2(rollup@3.29.5)
+      '@rollup/pluginutils': 5.1.2(rollup@4.22.4)
       acorn: 8.12.1
       escape-string-regexp: 5.0.0
       estree-walker: 3.0.3
@@ -19558,9 +19558,9 @@ snapshots:
       - rollup
       - webpack-sources
 
-  unimport@3.12.0(rollup@4.22.4):
+  unimport@3.12.0(rollup@4.22.5):
     dependencies:
-      '@rollup/pluginutils': 5.1.2(rollup@4.22.4)
+      '@rollup/pluginutils': 5.1.2(rollup@4.22.5)
       acorn: 8.12.1
       escape-string-regexp: 5.0.0
       estree-walker: 3.0.3
