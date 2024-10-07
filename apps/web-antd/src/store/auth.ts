@@ -33,11 +33,19 @@ export const useAuthStore = defineStore('auth', () => {
     let userInfo: null | UserInfo = null;
     try {
       loginLoading.value = true;
-      const { accessToken } = await loginApi(params);
+      // const { accessToken } = await loginApi(params);
+      const result = await loginApi(params);
+      // console.log('loginApi', result);
+      const { code, status, data } = result;
 
-      // 如果成功获取到 accessToken
-      if (accessToken) {
+      if (code === 200 && status) {
+        const { accessToken } = data;
         accessStore.setAccessToken(accessToken);
+        // }
+
+        // 如果成功获取到 accessToken
+        // if (accessToken) {
+        // accessStore.setAccessToken(accessToken);
 
         // 获取用户信息并存储到 accessStore 中
         const [fetchUserInfoResult, accessCodes] = await Promise.all([
@@ -55,7 +63,7 @@ export const useAuthStore = defineStore('auth', () => {
         } else {
           onSuccess
             ? await onSuccess?.()
-            : await router.push(userInfo.homePath || DEFAULT_HOME_PATH);
+            : await router.push(userInfo?.homePath || DEFAULT_HOME_PATH);
         }
 
         if (userInfo?.realName) {
@@ -96,10 +104,14 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function fetchUserInfo() {
-    let userInfo: null | UserInfo = null;
-    userInfo = await getUserInfoApi();
-    userStore.setUserInfo(userInfo);
-    return userInfo;
+    // const userInfo: BaseResponse<UserInfo> | null = null;
+    const result = await getUserInfoApi();
+    if (result.status) {
+      userStore.setUserInfo(result.data);
+      return result.data;
+    } else {
+      return null;
+    }
   }
 
   function $reset() {

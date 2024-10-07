@@ -75,10 +75,37 @@ function createRequestClient(baseURL: string) {
       const { data: responseData, status } = response;
 
       const { code, data, message: msg } = responseData;
-      if (status >= 200 && status < 400 && code === 0) {
+      if (status >= 200 && status < 400 && code === 200) {
+        return responseData;
         return data;
       }
+      // console.log('response200', responseData);
       throw new Error(`Error ${status}: ${msg}`);
+    },
+    rejected: (error) => {
+      const { response } = error;
+      if (response) {
+        const { data } = response;
+        if (response.status === 400) {
+          // 400 请求错误
+          const { data } = response;
+          // console.log('response400', data);
+          message.error(data?.message);
+          return data;
+        }
+        if (response.status === 401) {
+          // 401 未登录
+          // 跳转到登录页面
+          // window.location.href = '/login';
+        }
+        if (response.status === 403) {
+          // 403 无权限
+          const { data } = response;
+          return data;
+        }
+        return Promise.reject(data);
+      }
+      return Promise.reject(error);
     },
   });
 

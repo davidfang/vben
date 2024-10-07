@@ -4,5 +4,9 @@
       "title": "演示",
       "antd": "Ant Design Vue"
     }
+  },
+  "authentication": {
+    "pageTitle": "一个方便的系统",
+    "pageDesc": "提供各种模板"
   }
 }
