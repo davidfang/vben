@@ -5,7 +5,7 @@ import { Page } from '@vben/common-ui';
 
 import { Button, Card, message, Step, Steps, Switch } from 'ant-design-vue';
 
-import { useVbenForm } from '#/adapter';
+import { useVbenForm } from '#/adapter/form';
 
 const currentTab = ref(0);
 function onFirstSubmit(values: Record<string, any>) {
@@ -46,7 +46,7 @@ const [FirstForm, firstFormApi] = useVbenForm({
     },
   ],
   submitButtonOptions: {
-    text: '下一步',
+    content: '下一步',
   },
   wrapperClass: 'grid-cols-1 md:grid-cols-1 lg:grid-cols-1',
 });
@@ -60,7 +60,7 @@ const [SecondForm, secondFormApi] = useVbenForm({
   handleSubmit: onSecondSubmit,
   layout: 'horizontal',
   resetButtonOptions: {
-    text: '上一步',
+    content: '上一步',
   },
   schema: [
     {

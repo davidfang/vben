@@ -123,6 +123,8 @@ interface ApplicationPluginOptions extends CommonPluginOptions {
   pwa?: boolean;
   /** pwa 插件配置 */
   pwaOptions?: Partial<PwaPluginOptions>;
+  /** 是否开启vxe-table懒加载 */
+  vxeTableLazyImport?: boolean;
 }
 
 interface LibraryPluginOptions extends CommonPluginOptions {
@@ -137,12 +139,12 @@ type ApplicationOptions = ApplicationPluginOptions;
 
 type LibraryOptions = LibraryPluginOptions;
 
-type DefineApplicationOptions = (config: ConfigEnv) => Promise<{
+type DefineApplicationOptions = (config?: ConfigEnv) => Promise<{
   application?: ApplicationOptions;
   vite?: UserConfig;
 }>;
 
-type DefineLibraryOptions = (config: ConfigEnv) => Promise<{
+type DefineLibraryOptions = (config?: ConfigEnv) => Promise<{
   library?: LibraryOptions;
   vite?: UserConfig;
 }>;

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, toRaw, unref } from 'vue';
+import { computed, toRaw, unref, watch } from 'vue';
 
 import { useSimpleLocale } from '@vben-core/composables';
 import { VbenExpandableArrow } from '@vben-core/shadcn-ui';
-import { cn, isFunction } from '@vben-core/shared/utils';
+import { cn, isFunction, triggerWindowResize } from '@vben-core/shared/utils';
 
 import { COMPONENT_MAP } from '../config';
 import { injectFormProps } from '../use-form-context';
@@ -16,26 +16,26 @@ const collapsed = defineModel({ default: false });
 
 const resetButtonOptions = computed(() => {
   return {
+    content: `${$t.value('reset')}`,
     show: true,
-    text: `${$t.value('reset')}`,
     ...unref(rootProps).resetButtonOptions,
   };
 });
 
 const submitButtonOptions = computed(() => {
   return {
+    content: `${$t.value('submit')}`,
     show: true,
-    text: `${$t.value('submit')}`,
     ...unref(rootProps).submitButtonOptions,
   };
 });
 
-const isQueryForm = computed(() => {
-  return !!unref(rootProps).showCollapseButton;
-});
+// const isQueryForm = computed(() => {
+//   return !!unref(rootProps).showCollapseButton;
+// });
 
 const queryFormStyle = computed(() => {
-  if (isQueryForm.value) {
+  if (!unref(rootProps).actionWrapperClass) {
     return {
       'grid-column': `-2 / -1`,
       marginLeft: 'auto',
@@ -65,32 +65,53 @@ async function handleReset(e: Event) {
     form.resetForm();
   }
 }
+
+watch(
+  () => collapsed.value,
+  () => {
+    const props = unref(rootProps);
+    if (props.collapseTriggerResize) {
+      triggerWindowResize();
+    }
+  },
+);
 </script>
 <template>
   <div
-    :class="cn('col-span-full w-full text-right', rootProps.actionWrapperClass)"
+    :class="
+      cn('col-span-full w-full pb-6 text-right', rootProps.actionWrapperClass)
+    "
     :style="queryFormStyle"
   >
+    <!-- 重置按钮前 -->
+    <slot name="reset-before"></slot>
+
     <component
-      :is="COMPONENT_MAP.DefaultResetActionButton"
+      :is="COMPONENT_MAP.DefaultButton"
       v-if="resetButtonOptions.show"
       class="mr-3"
       type="button"
       @click="handleReset"
       v-bind="resetButtonOptions"
     >
-      {{ resetButtonOptions.text }}
+      {{ resetButtonOptions.content }}
     </component>
 
+    <!-- 提交按钮前 -->
+    <slot name="submit-before"></slot>
+
     <component
-      :is="COMPONENT_MAP.DefaultSubmitActionButton"
+      :is="COMPONENT_MAP.PrimaryButton"
       v-if="submitButtonOptions.show"
       type="button"
       @click="handleSubmit"
       v-bind="submitButtonOptions"
     >
-      {{ submitButtonOptions.text }}
+      {{ submitButtonOptions.content }}
     </component>
+
+    <!-- 展开按钮前 -->
+    <slot name="expand-before"></slot>
 
     <VbenExpandableArrow
       v-if="rootProps.showCollapseButton"
@@ -99,5 +120,8 @@ async function handleReset(e: Event) {
     >
       <span>{{ collapsed ? $t('expand') : $t('collapse') }}</span>
     </VbenExpandableArrow>
+
+    <!-- 展开按钮后 -->
+    <slot name="expand-after"></slot>
   </div>
 </template>
